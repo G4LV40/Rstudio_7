@@ -1,0 +1,63 @@
+###### Construção de gráficos simples com o comando "plot"####------------------
+
+setwd("/home/luciano/Área de Trabalho/Curso_R_2020/Aulas")
+# criando dados com dependencia a priori
+
+x<-1:100
+y<-x^3
+# gerando um gráfico de duas entradas mostrando os pontos no plano x,y
+plot(x,y,xlab = " Eixo X ", ylab="Eixo Y ", main=(" Gráfico de interação"))
+
+# o comando lines monta linhas no grafico de acordo com funções
+#pre-definidas pelo usuário. "lines(função, lwd(espessura do traço), 
+#col= "cor do traço")
+lines(x,2*y, lwd=2, col="red")
+
+#adicionando pontos extras no grafico, pch= (tipo de ponto, cruz, circulos...)
+points(x,x^4,pch=8)
+
+#Adiciona textos ao gráfio, text(posição em X, posição em Y, "texto)
+text(80,100000, "Escreva um texto aqui")
+
+#### histogramas ####-----------------------------------------------------------
+
+dados<-read.table("histograma_aula_7.csv",header = FALSE)
+hist(dados)
+
+#nossos dados não são considerados numéricos
+x<-as.numeric(dados)
+
+#também não é dataframe, esta como lista, ou seja precisamos fazer duas edições
+#separa a lista em vetores numa matriz e selecionar apenas o numérico
+x<-as.data.frame(dados)
+X<-x[,1]
+hist(X)
+
+#### Boxplot ###----------------------------------------------------------------
+library(fBasics)
+
+
+dados<-c(2.07,2.14,2.22,2.03,2.21)
+boxplot(dados)
+descritivas<-basicStats(dados)
+
+# o ponto central do retangulo corresponde à mediana
+md<-median(dados)
+abline(h = (md), col = "green", lwd = 2)
+
+#Terceiro quartil (AZUL) limite superior da caixa e
+#no inferior o primeiro(VERMELHO)
+
+P_quartil<-descritivas[5,1]
+T_quartil<-descritivas[6,1]
+
+abline(h = P_quartil, col = "blue", lwd = 2)
+abline(h = T_quartil, col = "red", lwd = 2)
+
+
+Li.ic<-descritivas[11,1]
+Ls.ic<-descritivas[12,1]
+
+abline(h = Li.ic, col = "purple", lwd = 2)
+abline(h = 2.22, col = "pink", lwd = 2)
+
